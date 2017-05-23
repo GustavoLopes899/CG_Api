@@ -97,7 +97,7 @@ def shear(x, axis, sh):			# SHEAR #
 			if x.p[i].y > x.ymax:
 				x.ymax = x.p[i].y
 	elif x.ch == 2:			# CIRCLE #
-		print("fazer")
+		print("To do")
 	if x.fill == 0:
 		x.PolygonNotFilled()
 	elif x.fill == 1:

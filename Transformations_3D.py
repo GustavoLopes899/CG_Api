@@ -4,6 +4,8 @@ from PolygonClass import *
 import math
 
 def translation_3D(x, tX, tY):
+	print("To do")
+'''	
 	windowSurface.fill(BLACK)
 	if x.ch == 1:
 		for i in range(0, x.vertices+1):
@@ -20,9 +22,12 @@ def translation_3D(x, tX, tY):
 		x.PolygonNotFilled()
 	elif x.fill == 1:
 		x.PolygonFilled()
-	return x	
+	return x
+'''	
 		
 def scale_2D(x, sX, sY, sC, dX, dY):
+	print("To do")
+'''	
 	windowSurface.fill(BLACK)
 	if dX != 0 and dY != 0:
 		translation_2D(x, -dX, -dY)
@@ -44,8 +49,11 @@ def scale_2D(x, sX, sY, sC, dX, dY):
 	elif x.fill == 1:
 		x.PolygonFilled()
 	return x	
+'''
 		
 def rotation_3D(x, degrees, dX, dY):
+	print("To do")
+'''	
 	############################## APAGAR POLIGONO ANTIGO ##############################
 	print("\nRotation Around The Origin:")
 	if dX != 0 and dY != 0:
@@ -80,3 +88,4 @@ def rotation_3D(x, degrees, dX, dY):
 	elif x.fill == 1:
 		x.PolygonFilled()
 	return x
+'''	

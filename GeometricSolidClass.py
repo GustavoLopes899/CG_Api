@@ -1,3 +1,5 @@
+# To do
+
 class Point:
 	def __init__(self, coordinates):
 		self.x = coordinates[0]
