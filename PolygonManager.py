@@ -31,13 +31,13 @@ def inputPolygon(x):
 					# else:
 					# x.p[i].z = int(input("z = "))
 					x.p[i].z = 1
-					x.p[0].x = 100
+					x.p[0].x = 20
 					x.p[0].y = 100
 					x.p[1].x = 200
 					x.p[1].y = 100
-					x.p[2].x = 200
+					x.p[2].x = 45
 					x.p[2].y = 200
-				x.calcMinMax()
+				x.calcMinMax()				
 			else:
 				print("Number of vertices invalid")
 		elif choise == 2:

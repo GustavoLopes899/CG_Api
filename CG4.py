@@ -8,10 +8,9 @@ def main():
 	print("Clipping Algorithms:\n")
 	x = Polygon()
 	inputPolygon(x)
-	window = Polygon()
-	drawRectangleWindow(window)
+	# drawRectangleWindow(window)
 	# CohenSutherlandLineClipAndDraw(x, window)
-	SutherlandHodgemanClip(x, window)
+	SutherlandHodgemanClip(x)
 	Initializate.run()
 	
 if __name__ == "__main__":

@@ -17,6 +17,7 @@ class Polygon:
 	ymax = None
 	c = None
 	color = 8
+	window = False
 	
 	def __init__(self):	
 		self.ch = 0					# 1 -> polygon e 2 -> circle #
@@ -51,7 +52,8 @@ class Polygon:
 		pygame.event.get()	
 		
 	def drawPolygon(self):
-		windowSurface.fill(BLACK)
+		if self.window == False:
+			windowSurface.fill(BLACK)
 		if self.fill == 0:
 			self.PolygonNotFilled()
 		# SCAN-LINE FILL #		
