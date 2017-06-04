@@ -1,31 +1,28 @@
 import math
+from basicFunctions import *
 from Constants import *
 from Initializate import *
-from PolygonClass import *
+from PrimitivesClass import *
 	
 def translation_2D(tX, tY):		# TRANSLATION #
-	translationMatrix = [[]]
 	translationMatrix = [[1, 0, tX],
 						 [0, 1, tY],
 						 [0, 0,  1]]
 	return translationMatrix
 		
 def scale_2D(sX, sY):			# SCALE #
-	scaleMatrix = [[]]
 	scaleMatrix = [[sX , 0 , 0],
 				   [ 0 ,sY , 0],
 				   [ 0 , 0 , 1]]
 	return scaleMatrix			   
 		
-def rotation_2D(degrees):		# ROTATION #
-	rotationMatrix = [[]]	
+def rotation_2D(degrees):		# ROTATION #	
 	rotationMatrix = [[math.cos(math.radians(degrees)), -math.sin(math.radians(degrees)), 0],
 					  [math.sin(math.radians(degrees)),  math.cos(math.radians(degrees)), 0],
 					  [				0				  ,					0				, 1]]
 	return rotationMatrix				  
 		
 def shear(axis, sh):			# SHEAR #
-	shearMatrix = [[]]
 	if axis == 1:		# X axis
 		shearMatrix = [[1, sh, 0],
 					   [0, 1 , 0],
@@ -36,19 +33,11 @@ def shear(axis, sh):			# SHEAR #
 					   [0 , 0, 1]]
 	return shearMatrix	
 
-def multiplyMatrix(matrix1, matrix2):		# MULTIPLY 2 MATRIX #
-	matrixResult = [[0]*3 for i in range(3)]	
-	for l in range(len(matrix1)):
-	   for j in range(len(matrix2[0])):
-		   for k in range(len(matrix2)):
-			   matrixResult[l][j] += float(matrix1[l][k]) * float(matrix2[k][j])
-	return matrixResult
-	
 def applyTransformation(polygonList, matrixResult):		# METHOD TO APPLY TRANSFORMATION IN THE POLYGON #
 	for i in range (0, len(polygonList)):
 		for j in range (0, polygonList[i].vertices):
 			matrixPoint = [[polygonList[i].p[j].x], [polygonList[i].p[j].y], [polygonList[i].p[j].z]]
-			points = multiplyMatrix(matrixResult, matrixPoint)
+			points = multiplyMatrix(matrixResult, matrixPoint, 3)
 			polygonList[i].p[j].x = points[0][0]
 			polygonList[i].p[j].y = points[1][0]
 			# polygonList[i].p[j].z = points[2][0]
@@ -172,7 +161,7 @@ def InputTransformation2D(polygonList):
 			print("\nIncorrect option")
 			continue		
 	while matrixList != []:
-		matrixResult = multiplyMatrix(matrixResult, matrixList[0])
+		matrixResult = multiplyMatrix(matrixResult, matrixList[0], 3)
 		matrixList.pop(0)
 	# print("matrix result final: ")	
 	# for r in matrixResult:

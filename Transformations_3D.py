@@ -1,11 +1,11 @@
 import math
+from basicFunctions import *
 from Constants import *
 from Initializate import *
-from PolygonClass import *
+from PrimitivesClass import *
 	
 def translation_3D(tX, tY, tZ):
 	print("Translation")
-	translationMatrix = [[]]
 	translationMatrix = [[1, 0, 0, tX],
 						 [0, 1, 0, tY],
 						 [0, 0, 1, tZ],
@@ -14,7 +14,6 @@ def translation_3D(tX, tY, tZ):
 		
 def scale_3D(sX, sY, sZ):
 	print("Scale")
-	scaleMatrix = [[]]
 	scaleMatrix = [[sX , 0 , 0 , 0],
 				   [ 0 , sY, 0 , 0],
 				   [ 0 , 0 , sZ, 0],
@@ -23,7 +22,6 @@ def scale_3D(sX, sY, sZ):
 		
 def rotation_3D(axis, degrees):
 	print("Rotation")
-	rotationMatrix = [[]]
 	if axix == 1:
 		rotationMatrix = [[1, 			0					 , 				0				   , 0],
 						  [0, math.cos(math.radians(degrees)), -math.sin(math.radians(degrees)), 0],
@@ -41,21 +39,13 @@ def rotation_3D(axis, degrees):
 						  [				0				  ,					0				, 0, 1]]
 		
 	return rotationMatrix				  
-
-def multiplyMatrix(matrix1, matrix2):
-	matrixResult = [[0]*4 for i in range(4)]	
-	for l in range(len(matrix1)):
-	   for j in range(len(matrix2[0])):
-		   for k in range(len(matrix2)):
-			   matrixResult[l][j] += float(matrix1[l][k]) * float(matrix2[k][j])
-	return matrixResult
 	
 def applyTransformation3D(polygonList, matrixResult):
 	for i in range (0, len(polygonList)):
 		for j in range (0, polygonList[i].vertices):
 			matrixPoint = [[polygonList[i].p[j].x], [polygonList[i].p[j].y], [polygonList[i].p[j].z], [1]]
 			print("Matrix Points: ", matrixPoint)
-			points = multiplyMatrix(matrixResult, matrixPoint)
+			points = multiplyMatrix(matrixResult, matrixPoint, 3)
 			print("Points: ", points)
 			polygonList[i].p[j].x = points[0][0]
 			polygonList[i].p[j].y = points[1][0]
@@ -104,7 +94,7 @@ def InputTransformation3D(polygonList):
 			if ch2 == 2:
 				matrixList.append(translation_3D(-dX, -dY, -dZ))
 		elif ch1 == 3:		# ROTATION #
-			ch2 = int(input("Rotation in relation: (1) x-axis; (2) y-axis; (3) y-axis; (4) arbitrary axis: "))
+			ch2 = int(input("Rotation in relation: (1) x-axis; (2) y-axis; (3) z-axis; (4) arbitrary axis: "))
 			if ch2 == 1 or ch2 == 2 or ch2 == 3:
 				degrees = float(input("Enter the degrees for rotation: "))
 				matrixList.append(rotation_3D(ch2, degrees))
@@ -188,7 +178,7 @@ def InputTransformation3D(polygonList):
 			continue
 	# print("MatrixList: ", matrixList)		
 	while matrixList != []:
-		matrixResult = multiplyMatrix(matrixResult, matrixList[0])
+		matrixResult = multiplyMatrix(matrixResult, matrixList[0], 4)
 		matrixList.pop(0)
 	print("matrix result final: ")	
 	for r in matrixResult:

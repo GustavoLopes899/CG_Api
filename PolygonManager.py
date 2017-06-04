@@ -1,7 +1,7 @@
 from BresenhamLine import *
 from Constants import *
 from Initializate import *
-from PolygonClass import *
+from PrimitivesClass import *
 from Transformations_2D import *
 from Transformations_3D import *
 

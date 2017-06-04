@@ -1,7 +1,7 @@
 import sys
 from Clipping import *
 from Initializate import *
-from PolygonClass import *
+from PrimitivesClass import *
 from PolygonManager import *
 	
 def main():

@@ -1,7 +1,7 @@
 import copy
 from Constants import *
 from Initializate import *
-from PolygonClass import *
+from PrimitivesClass import *
 
 def ComputeInt(x, x0, y0):							# METHOD TO CHECK IF THE POINT IS INSIDE OF MARGIN (COHEN-SUTHERLAND AUXILIARY)
 	code = INSIDE

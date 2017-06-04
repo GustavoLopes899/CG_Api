@@ -1,11 +1,11 @@
 import sys
 from AntiAliasing import *
 from Initializate import *
-from PolygonClass import *
+from PrimitivesClass import *
 from PolygonManager import *
 	
 def main():
-	x = Polygon()					# File: PolygonClass.py
+	x = Polygon()					# File: PrimitivesClass.py
 	inputPolygon(x)					# File: PolygonManager.py
 	#antiAliasing(windowSurface)	# File: AntiAliasing.py
 	Initializate.run()				# File: Initializate.py
