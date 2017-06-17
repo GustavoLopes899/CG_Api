@@ -1,13 +1,19 @@
+'''
+Tests with 3D projection
+'''
+
 import sys
-from Clipping import *
-from Initializate import *
-from PrimitivesClass import *
-from PolygonManager import *
-from Projection3D import *
+from modules.Clipping import *
+from modules.Initializate import *
+from modules.PrimitivesClass import *
+from modules.PolygonManager import *
+from modules.Projection3D import *
 	
 def main():
 	print("Projections 3D:\n")
-	viewTransformation()
+	#viewTransformation()
+	matrix = perspectiveProjection_3D()
+	print("\nEnd of Program")	
 	Initializate.run()
 	
 if __name__ == "__main__":

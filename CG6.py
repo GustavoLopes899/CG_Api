@@ -1,15 +1,19 @@
+'''
+Tests with Bezier Curves
+'''
+
 import sys
-from BezierCurve import *
-from Initializate import *
-from PrimitivesClass import *
+from modules.BezierCurve import *
+from modules.Initializate import *
+from modules.PrimitivesClass import *
 	
 def main():
-	print("Bezier Curve Algorithm:\n")
-	#numberPoints = int(input("Enter the number of points: "))
+	print("Bezier Curve Algorithm:")
 	numberPoints = 4
 	straight = Straight(numberPoints)
 	straight.inputPoints()
 	straight = cubicBezier(straight)
+	print("\nEnd of Program")	
 	Initializate.run()
 	
 if __name__ == "__main__":
