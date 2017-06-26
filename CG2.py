@@ -16,13 +16,15 @@ def main():
 	while choice != 1 and choice != 2:
 		choice = int(input(" Enter 1 to 2D image or 2 to 3D projection: "))
 	polygonList = inputPolygon()
-	if choice == 1:
-		InputTransformation2D(polygonList)
-	else:	
-		InputTransformation3D(polygonList)
-	choice = int(input(" Enter 1 to apply anti-aliasing or 2 to continue: "))
-	if choice == 1:
-		antiAliasing(windowSurface)
+	print(polygonList)
+	if len(polygonList) != 0:
+		if choice == 1:
+			InputTransformation2D(polygonList)
+		else:	
+			InputTransformation3D(polygonList)
+		choice = int(input("\n Enter 1 to apply anti-aliasing or 2 to continue: "))
+		if choice == 1:
+			antiAliasing(windowSurface)
 	print("\nEnd of Program")
 	Initializate.run()
 	

@@ -18,5 +18,4 @@ class Initializate:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					running = False
-			#self.screen.fill(self.background)
 			pygame.display.flip()	

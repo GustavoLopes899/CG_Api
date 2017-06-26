@@ -4,7 +4,6 @@ from modules.Constants import *
 def antiAliasing(windowSurface):
 	print("\n>> Applying Antialiasing, please wait ...")
 	matrix = pygame.surfarray.array2d(windowSurface)
-	percent = int((width * height)/100)
 	for i in range(0, width-1):
 		for j in range(0, height-1):		
 			pixel_00 = ((matrix[i-1][j-1] % 256)*(1/9), (matrix[i-1][j-1] / 256 % 256)*(1/9), (matrix[i-1][j-1] / 256 / 256 % 256)*(1/9))

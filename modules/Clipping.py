@@ -76,7 +76,6 @@ def CohenSutherlandLineClipAndDraw(x):				# COHEN-SUTHERLAND CLIPPING ALGORITHM
 			z.p[i].y = y0
 			z.p[i+1].x = x1
 			z.p[i+1].y = y1
-			#print("Reta aceita: ", x0, y0, x1, y1)
 			BresenhamLine(x0, y0, x1, y1, x.color)
 	window.calcMinMax()
 	window.drawPolygon()		
@@ -91,17 +90,16 @@ def SutherlandHodgemanClip(x):						# SUTHERLAND-HODGEMAN CLIPPING ALGORITHM
 	ymax = window.ymax
 	##	Before clipping ##
 	window.drawPolygon()
-	yes = input()
 	left_clip(x, xmin)
 	right_clip(x, xmax)
 	bottom_clip(x, ymin)
 	top_clip(x, ymax)
 	##	After clipping ##
+	windowSurface.fill(BLACK)
 	x.calcMinMax()	
 	x.drawPolygon()
 	window.calcMinMax()
 	window.drawPolygon()
-	print("End of Program")
 
 def left_clip(x, xmin):								# LEFT CLIP
 	temp = list(range(20))
@@ -348,7 +346,6 @@ def inputRectangleWindow(window):					# INPUT FOR THE RECTANGULAR WINDOW
 	window.ch = 1	# polygon
 	window.color = 8
 	window.vertices = 4
-	window.window = True
 	print("\n Program to draw rectangle window:")
 	for i in range(0, window.vertices):
 		window.p[i] = Point()

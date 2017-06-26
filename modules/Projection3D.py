@@ -13,19 +13,19 @@ def crossProduct(a, b):
 def inputVector():
 	v = Vector()
 	print("Input Vector:")
-	v.x0 = int(input("Enter the x0 coordinate: "))
-	v.y0 = int(input("Enter the y0 coordinate: "))
-	v.z0 = int(input("Enter the z0 coordinate: "))
-	v.x1 = int(input("Enter the x1 coordinate: "))
-	v.y1 = int(input("Enter the y1 coordinate: "))
-	v.z1 = int(input("Enter the z1 coordinate: "))
+	v.x0 = int(input(" Enter the x0 coordinate: "))
+	v.y0 = int(input(" Enter the y0 coordinate: "))
+	v.z0 = int(input(" Enter the z0 coordinate: "))
+	v.x1 = int(input(" Enter the x1 coordinate: "))
+	v.y1 = int(input(" Enter the y1 coordinate: "))
+	v.z1 = int(input(" Enter the z1 coordinate: "))
 	v.vector = [v.x1-v.x0, v.y1-v.y0, v.z1-v.z0]
 	return v
 
 def inputCameraPosition():
-	x0 = int(input("Enter the x0 coordinate from the camera: "))
-	y0 = int(input("Enter the y0 coordinate from the camera: "))
-	z0 = int(input("Enter the z0 coordinate from the camera: "))
+	x0 = int(input(" Enter the x0 coordinate from the camera: "))
+	y0 = int(input(" Enter the y0 coordinate from the camera: "))
+	z0 = int(input(" Enter the z0 coordinate from the camera: "))
 	return (x0, y0, z0)
 
 def inputCenterPosition():
@@ -41,7 +41,7 @@ def viewTransformation():			# DISPLAY TRANSFORMATION MATRIX #
 	u = Vector()
 	v = Vector()
 	n = Vector()
-	print("View Transformation:\n")
+	print(" View Transformation:\n")
 	for i in range(1):			# remover depois
 		camera = inputCameraPosition()
 		#vA = inputVector()
@@ -88,7 +88,7 @@ def viewTransformation():			# DISPLAY TRANSFORMATION MATRIX #
 		 [n.vector[0], n.vector[1], n.vector[2], 0],
 		 [	  0		 , 	   0	  , 	0	   , 1]]
 	m = multiplyMatrix(r, t, 4)
-	print("Matrix = ", m)
+	#print("Matrix = ", m)
 	uP0 = m[0][3]
 	vP0 = m[1][3]
 	nP0 = m[2][3]
@@ -122,3 +122,16 @@ def perspectiveProjection_3D():	# PERSPECTIVE PROJECTION #
 						 [0, 0,  1 , 0],
 						 [0, 0, 1/d, 0]]
 	return perspectiveMatrix
+	
+def applyProjection3D(polygonList, matrixResult):		# METHOD TO APPLY PROJECTION IN THE POLYGON #
+	for i in range (0, len(polygonList)):
+		for j in range (0, polygonList[i].vertices):
+			matrixPoint = [[polygonList[i].p[j].x], [polygonList[i].p[j].y], [polygonList[i].p[j].z]]
+			points = multiplyMatrix(matrixResult, matrixPoint, 4)
+			print("Points = ", points)
+			polygonList[i].p[j].x = points[0][0]
+			polygonList[i].p[j].y = points[1][0]
+			polygonList[i].p[j].z = points[2][0]
+		polygonList[i].calcMinMax()
+		polygonList[i].drawPolygon()
+	return polygonList	

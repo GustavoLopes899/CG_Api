@@ -34,6 +34,7 @@ def shear(axis, sh):					# SHEAR 2D #
 	return shearMatrix	
 
 def applyTransformation(polygonList, matrixResult):		# METHOD TO APPLY TRANSFORMATION IN THE POLYGON #
+	windowSurface.fill(BLACK)
 	for i in range (0, len(polygonList)):
 		for j in range (0, polygonList[i].vertices):
 			matrixPoint = [[polygonList[i].p[j].x], [polygonList[i].p[j].y], [polygonList[i].p[j].z]]
@@ -43,12 +44,14 @@ def applyTransformation(polygonList, matrixResult):		# METHOD TO APPLY TRANSFORM
 			polygonList[i].p[j].z = points[2][0]
 		polygonList[i].calcMinMax()
 		polygonList[i].drawPolygon()
+		print("desenhou")
 	return polygonList
 
 def InputTransformation2D(polygonList):					# INPUT FOR ALL TRANSFORMATIONS IN 2D #
 	matrixList = []
 	matrixResult = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
 	ch1 = 1
+	print()
 	while ch1 != 0:
 		print("\tMENU TRANSFORMATION 2D:")
 		print(" 1 . Translation ")
@@ -163,6 +166,4 @@ def InputTransformation2D(polygonList):					# INPUT FOR ALL TRANSFORMATIONS IN 2
 	while matrixList != []:
 		matrixResult = multiplyMatrix(matrixResult, matrixList[0], 3)
 		matrixList.pop(0)
-	if len(polygonList) > 1:
-		polygonList.pop(1)
 	polygonList = applyTransformation(polygonList, matrixResult)

@@ -7,35 +7,83 @@ class Object3D:				# CLASS OF OBJECTS 3D #
 		size = 0
 		self.edge = []
 		self.vertices = [Point]*20
-		self.superficie = None
+		self.surface = []
 
 	def	inputObject3D(self):
-		self.size = int(input("Enter the number of vertices: "))
+		#self.size = int(input("Enter the number of vertices: "))
+		self.size = 4
 		for i in range(0, self.size):
-			print("\nEnter the coordinate ", i+1, ":")
+			print("\nEnter the coordinate ", i, ":")
 			self.vertices[i] = Point()
-			self.vertices[i].x = int(input("x = "))
-			self.vertices[i].y = int(input("y = "))
-			self.vertices[i].z = int(input("z = "))
-			print("Point [", i+1, "] = (", self.vertices[i].x, ",", self.vertices[i].y, ",", self.vertices[i].z, ")")
+			#self.vertices[i].x = int(input("x = "))
+			#self.vertices[i].y = int(input("y = "))
+			#self.vertices[i].z = int(input("z = "))
+			self.vertices[0].x = 100
+			self.vertices[0].y = 100
+			self.vertices[0].z = 0
+			self.vertices[1].x = 200
+			self.vertices[1].y = 100
+			self.vertices[1].z = 0
+			self.vertices[2].x = 150
+			self.vertices[2].y = 300
+			self.vertices[2].z = 0
+			self.vertices[3].x = 150
+			self.vertices[3].y = 175
+			self.vertices[3].z = 10
+			print("Point [", i, "] = (", self.vertices[i].x, ",", self.vertices[i].y, ",", self.vertices[i].z, ")")
 		for j in range(0, self.size*2):
-			print("\nEnter two points on the edge ", j+1, ": ")
-			point1 = int(input("What's the point 1: "))
-			while point1 < 1 or point1 > self.size:
-				print("Point doesn't exist")
-				point1 = int(input("What's the point 1: "))
-			point2 = int(input("What's the point 2: "))
-			while point2 < 1 or point2 > self.size:
-				print("Point doesn't exist")
-				point1 = int(input("What's the point 2: "))
-			self.edge.append((point1-1, point2-1))
-			choice = int(input("Another edge (1 to yes; 0 to no): "))
+			print("\nEnter two points on the edge ", j, ": ")
+			#point1 = int(input("What's the point 1: "))
+			#while point1 < 0 or point1 >= self.size:
+				#print("Point doesn't exist")
+				#point1 = int(input("What's the point 1: "))
+			#point2 = int(input("What's the point 2: "))
+			#while point2 < 0 or point2 >= self.size:
+				#print("Point doesn't exist")
+				#point1 = int(input("What's the point 2: "))
+			#self.edge.append((point1, point2))
+			self.edge.append((0,1))
+			self.edge.append((2,0))
+			self.edge.append((0,3))
+			self.edge.append((1,2))
+			self.edge.append((3,1))
+			self.edge.append((3,2))
+			#choice = int(input("Another edge (1 to yes; 0 to no): "))
+			choice = 0	# remover
 			if choice == 0:
 				break
-		self.edge = list(set(self.edge))		
-		print("Edges: ", self.edge)
-		#while True:
-		#	print("Enter the edges of the polygon:")
+		self.edge = list(set(self.edge))		# ordenar edges		
+		for i in range(0, len(self.edge)):
+			print("Edge[", i, "] = ", self.edge[i])		
+		print("\n Enter the edges of the polygon surface:")
+		#for i in range(1000):
+			#print("\nEnter with the edges of the surface ", i, ": ")
+			#edgesAux = []
+			#while True:
+				#edgesSurface = int(input("What's the edge: "))
+				#edgesAux.append(edgesSurface)
+				#print("EdgeAux = ", edgesAux)
+				#choice = int(input("There's another edge? 1 to Yes and 0 to No: "))
+				#while choice != 1 and choice != 0:
+				#	choice = int(input("There's another edge? 1 to Yes and 2 to No: "))
+				#if choice == 1:
+				#	continue
+				#else:
+				#	edgesAux = tuple(edgesAux)
+				#	self.surface.append(edgesAux)
+				#	print("Surfaces = ", self.surface)
+				#	break
+			#choice = int(input("There's another surface? 1 to Yes and 0 to No: "))
+			#while choice != 1 and choice != 0:
+			#	choice = int(input("There's another surface? 1 to Yes and 0 to No: "))
+			#if choice == 0:
+			#	break
+		self.surface.append(((0, 1), (1, 2), (2, 0)))	
+		self.surface.append(((0, 3), (3, 2), (2, 0)))	
+		self.surface.append(((0, 3), (3, 1), (1, 0)))	
+		self.surface.append(((1, 3), (3, 2), (2, 2)))
+		for i in range(len(self.surface)):
+			print("Surface [", i, "= ", self.surface[i])
 		if self.ConsistencyTest():
 			for k in range(0, len(self.edge)):
 				BresenhamLine(self.vertices[self.edge[k][0]].x, self.vertices[self.edge[k][0]].y,
@@ -44,24 +92,58 @@ class Object3D:				# CLASS OF OBJECTS 3D #
 
 	def ConsistencyTest(self):
 		aux = []
+		found = False
+		count = 0
 		# Cada vértice deve aparecer em ao menos duas linhas na tabela de arestas
 		for i in range(0, self.size):
 			count = 0
 			for j in range(0, len(self.edge)):
 				aux = self.edge[j]
-				print("Aux = ", aux)
+				#print("Aux = ", aux)
 				for k in range(0, len(self.edge[j])):
 					if i == aux[k]:
 						count = count + 1		
-			if count != 2:
-				print("Inconsistent polygon")
+			if count < 2:
+				print("Inconsistent polygon, invalid number of vertices.")
 				return False
-				break
-			aux.pop(0)	
 		# Toda aresta faz parte de ao menos um polígono (face)
-		
+		for i in range(len(self.edge)):						# laço de todas as arestas
+			#print("I = ", i)
+			found = False
+			aux = self.edge[i]
+			#print("Aux1 = ", aux)
+			for j in range(0, len(self.surface)):			# laço de todos os poligonos
+				for k in range(0, len(self.surface[j])):	# laço de cada componente do poligono
+					for l in range(0, len(self.surface[j])):
+						#print("self.surface[k][l] = ", self.surface[k][l])
+						if self.surface[k][l] == aux:
+							#print("Achou")
+							found = True
+							break
+					if found:
+						break
+				if found:
+					break
+		if not(found):
+			print("Inconsistent polygon, edges missing on polygons.")
+			return False
 		# Todo polígono é fechado
-		# Cada polígono tem ao menos uma aresta compartilhada (considerando mais de uma face)
+		for i in range(len(self.surface)):		# 4 * (x,y,z)
+			for j in range(len(self.surface[i])):	# 3 vezes
+				count = 1
+				aux = self.surface[i][j][0]
+				#print("Aux = ", aux)
+				for k in range(len(self.surface[i])):
+					#print("Cmp = ", self.surface[i][k][1])
+					if aux == self.surface[i][k][1]:
+						#print("Achou")
+						count = count + 1
+						break
+				#print("Count = ", count)		
+			if count != 2:
+				print("Inconsistent polygon, polygon not closed")
+				return False
+		print("\n Consistency Test: STATUS OK")
 		return True
 
 class Straight:				# CLASS OF A SINGLE STRAIGHT #
@@ -120,7 +202,6 @@ class Polygon:				# CLASS OF A POLYGON #
 		self.p = [Point] * 20
 		self.radius = 0
 		self.vertices = 0
-		self.window = False
 
 	def PolygonNotFilled(self):		# FUNCTION TO DRAW POLYGONS NOT FILLED #
 		if self.ch == 1:		# POLYGON #
@@ -147,8 +228,8 @@ class Polygon:				# CLASS OF A POLYGON #
 		pygame.event.get()	
 
 	def drawPolygon(self):			# FUNCTION ANALYZING IF FILLED OR NOT FILLED #	
-		if self.window == False:
-			windowSurface.fill(BLACK)
+		#if self.window == False:
+			#windowSurface.fill(BLACK)
 			#print("Clear Screen")
 		if self.fill == 0:
 			self.PolygonNotFilled()
